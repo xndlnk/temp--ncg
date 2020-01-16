@@ -1,0 +1,11 @@
+{
+  "name": "nevercompletedgame",
+  "version": "0.0.0",
+  "dependencies": {},
+  "devDependencies": {
+    "roboter": "10.1.22"
+  },
+  "scripts": {
+    "start": "npx ts-node app.ts"
+  }
+}
