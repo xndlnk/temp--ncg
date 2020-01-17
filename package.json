@@ -21,7 +21,7 @@
     "start-concurrently": "1.0.1"
   },
   "scripts": {
-    "start-single-process": "npx ts-node singleProcessServer/app.ts",
+    "single-process": "npx ts-node singleProcessServer/app.ts",
 
     "start": "LOG_FORMATTER=human npx start-concurrently",
     "start-command-server": "npx ts-node servers/command/app.ts",

@@ -18,6 +18,8 @@ const eventEmitter = new EventEmitter();
 api.post('/domain-events', async (req, res): Promise<void> => {
   const domainEvents = req.body as DomainEvent[];
 
+  logger.info('Domain Events received.', { domainEvents });
+
   eventEmitter.emit('domain-events', domainEvents);
 
   res.status(200).json({});

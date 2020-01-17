@@ -49,6 +49,8 @@ const logger = flaschenpost.getLogger();
         return;
       }
 
+      logger.info('Domain Event received.', { domainEvent });
+
       for (const [ viewName, view ] of Object.entries(views)) {
         const viewDefinition = await import(path.join(__dirname, '..', '..', 'app', 'views', viewName, 'index'));
         const { projections } = viewDefinition;
