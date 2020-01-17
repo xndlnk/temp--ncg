@@ -9,6 +9,7 @@
     "express": "4.17.1",
     "flaschenpost": "4.0.2",
     "lodash": "4.17.15",
+    "ndjson": "1.5.0",
     "uuidv4": "6.0.1"
   },
   "devDependencies": {
@@ -20,11 +21,16 @@
     "start-concurrently": "1.0.1"
   },
   "scripts": {
+    "start-single-process": "npx ts-node singleProcessServer/app.ts",
+
     "start": "LOG_FORMATTER=human npx start-concurrently",
     "start-command-server": "npx ts-node servers/command/app.ts",
     "start-command-store-server": "npx ts-node servers/commandStore/app.ts",
     "start-dispatcher-server": "npx ts-node servers/dispatcher/app.ts",
     "start-domain-server": "sleep 1 && npx ts-node servers/domain/app.ts",
-    "start-domain-event-store-server": "npx ts-node servers/domainEventStore/app.ts"
+    "start-domain-event-store-server": "npx ts-node servers/domainEventStore/app.ts",
+    "start-domain-event-publisher-server": "npx ts-node servers/domainEventPublisher/app.ts",
+    "start-domain-event-server": "npx ts-node servers/domainEvent/app.ts",
+    "start-query-server": "sleep 1 && npx ts-node servers/query/app.ts"
   }
 }

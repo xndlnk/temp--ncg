@@ -38,7 +38,7 @@ const logger = flaschenpost.getLogger();
 
       logger.info('Command received.', { command });
 
-      const AggregateDefinition = await import(path.join(__dirname, '..', '..', 'app', command.contextName, command.aggregateName, 'index'));
+      const AggregateDefinition = await import(path.join(__dirname, '..', '..', 'app', 'domain', command.contextName, command.aggregateName, 'index'));
       const AggregateConstructor = AggregateDefinition[upperFirst(command.aggregateName)];
       const aggregateInstance: Aggregate = new AggregateConstructor();
 
@@ -55,14 +55,21 @@ const logger = flaschenpost.getLogger();
 
       const domainEvents = aggregateInstance.handleCommand(command);
 
+      // Store in event store
       await axios({
         method: 'post',
         url: 'http://localhost:3006/domain-events',
         data: domainEvents
       });
 
-      // TODO: ...
+      // Publish via event publisher
+      await axios({
+        method: 'post',
+        url: 'http://localhost:3008/domain-events',
+        data: domainEvents
+      });
 
+      // Acknowledge to dispatcher
       await axios({
         method: 'post',
         url: 'http://localhost:3004/acknowledge',

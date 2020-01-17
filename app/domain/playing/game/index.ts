@@ -1,6 +1,6 @@
-import { Aggregate } from '../../../lib/elements/Aggregate';
-import { CommandWithMetadata } from '../../../lib/elements/CommandWithMetadata';
-import { DomainEvent } from '../../../lib/elements/DomainEvent';
+import { Aggregate } from '../../../../lib/elements/Aggregate';
+import { CommandWithMetadata } from '../../../../lib/elements/CommandWithMetadata';
+import { DomainEvent } from '../../../../lib/elements/DomainEvent';
 import riddles from '../../riddles.json';
 
 class Game extends Aggregate {

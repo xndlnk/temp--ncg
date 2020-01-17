@@ -8,6 +8,6 @@ const api = getApi();
 
 const server = http.createServer(api);
 
-server.listen(3002, (): void => {
-  logger.info('Command server started.', { port: 3002 });
+server.listen(3009, (): void => {
+  logger.info('Domain event server started.', { port: 3009 });
 });
