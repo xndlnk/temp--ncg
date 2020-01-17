@@ -6,7 +6,8 @@ import { uuid } from 'uuidv4';
 /* eslint-disable @typescript-eslint/no-floating-promises */
 (async (): Promise<void> => {
   try {
-    const openGame = new Command('playing', 'game', uuid(), 'open', {});
+    const gameId = uuid();
+    const openGame = new Command('playing', 'game', gameId, 'open', {});
 
     const { data } = await axios({
       method: 'post',

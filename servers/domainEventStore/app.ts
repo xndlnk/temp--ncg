@@ -28,6 +28,15 @@ api.get('/domain-events', (_req, res): void => {
   res.status(200).json(database);
 });
 
+api.get('/domain-events/:aggregateId', (req, res): void => {
+  const { aggregateId } = req.params;
+
+  const domainEvents = database.
+    filter((row): boolean => row.aggregateId === aggregateId);
+
+  res.status(200).json(domainEvents);
+});
+
 const server = http.createServer(api);
 
 server.listen(3006, (): void => {

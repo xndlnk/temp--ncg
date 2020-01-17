@@ -1,6 +1,7 @@
 import { Aggregate } from '../../lib/elements/Aggregate';
 import axios from 'axios';
 import { CommandWithMetadata } from '../../lib/elements/CommandWithMetadata';
+import { DomainEvent } from '../../lib/elements/DomainEvent';
 import { flaschenpost } from 'flaschenpost';
 import path from 'path';
 import { promisify } from 'util';
@@ -40,6 +41,17 @@ const logger = flaschenpost.getLogger();
       const AggregateDefinition = await import(path.join(__dirname, '..', '..', 'app', command.contextName, command.aggregateName, 'index'));
       const AggregateConstructor = AggregateDefinition[upperFirst(command.aggregateName)];
       const aggregateInstance: Aggregate = new AggregateConstructor();
+
+      ({ data } = await axios({
+        method: 'get',
+        url: `http://localhost:3006/domain-events/${command.aggregateId}`
+      }));
+
+      const previousDomainEvents = data as DomainEvent[];
+
+      for (const previousDomainEvent of previousDomainEvents) {
+        aggregateInstance.updateWithDomainEvent(previousDomainEvent);
+      }
 
       const domainEvents = aggregateInstance.handleCommand(command);
 

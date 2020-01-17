@@ -23,6 +23,14 @@ abstract class Aggregate {
 
     return domainEvents;
   }
+
+  public updateWithDomainEvent (domainEvent: DomainEvent): void {
+    if (!(this as any)[domainEvent.name]) {
+      return;
+    }
+
+    (this as any)[domainEvent.name](domainEvent);
+  }
 }
 
 export { Aggregate };
