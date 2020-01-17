@@ -12,12 +12,15 @@ const api = express();
 api.use(cors());
 api.use(bodyParser.json());
 
-let database: CommandWithMetadata[] = [];
+let database: {
+  command: CommandWithMetadata;
+  isProcessing: boolean;
+}[] = [];
 
 api.post('/command', (req, res): void => {
   const command = req.body as CommandWithMetadata;
 
-  database.push(command);
+  database.push({ command, isProcessing: false });
 
   logger.info('Command stored.', { command });
 
@@ -28,10 +31,28 @@ api.get('/commands', (_req, res): void => {
   res.status(200).json(database);
 });
 
+api.post('/mark-as-processing', (req, res): void => {
+  const { commandId } = req.body as { commandId: string };
+
+  const commandWithStatus = database.find(
+    (row): boolean => row.command.id === commandId
+  );
+
+  if (!commandWithStatus) {
+    res.status(404).json({});
+
+    return;
+  }
+
+  commandWithStatus.isProcessing = true;
+
+  res.status(200).json({});
+});
+
 api.delete('/command', (req, res): void => {
   const { commandId } = req.body as { commandId: string };
 
-  database = database.filter((row): boolean => row.id !== commandId);
+  database = database.filter((row): boolean => row.command.id !== commandId);
 
   logger.info('Removed command from store.', { commandId });
 

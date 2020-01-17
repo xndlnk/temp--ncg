@@ -4,6 +4,7 @@ https://www.nevercompletedgame.com/
 
 ## Modellierung
 
+```
 neverCompletedGame              (Domain)
   playing                       (Bounded Context)
     game                        (Aggregate)
@@ -19,6 +20,7 @@ neverCompletedGame              (Domain)
       state
         currentLevel
         isCompleted
+```
 
 ## Links
 
