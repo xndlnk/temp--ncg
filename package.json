@@ -17,7 +17,7 @@
     "@types/express": "4.17.2",
     "@types/lodash": "4.14.149",
     "@types/node": "13.1.7",
-    "roboter": "10.1.22",
+    "roboter": "13.2.1",
     "start-concurrently": "1.0.1"
   },
   "scripts": {
